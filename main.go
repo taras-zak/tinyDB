@@ -6,7 +6,10 @@ import (
 	"log"
 	"os"
 	"strings"
+	"errors"
 )
+
+var ErrorNoSuchKey = errors.New("No such key")
 
 type DB struct {
 	source string
@@ -43,7 +46,7 @@ func (d *DB) Get(key string) (res string, err error) {
 			return v, nil
 		}
 	}
-	return res, fmt.Errorf("No such key")
+	return res, ErrorNoSuchKey
 }
 
 func (d *DB) Close() {
